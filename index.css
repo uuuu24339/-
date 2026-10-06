@@ -1,0 +1,344 @@
+/* ==========================================
+   全体レイアウト・画面中央寄せの設定
+   ========================================== */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f2f5;
+  font-family: sans-serif;
+}
+
+.game-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px; /* ★拡大: 40px -> 60px */
+}
+
+/* ==========================================
+   プレイヤーカードの基本スタイル
+   ========================================== */
+.player-card {
+  width: 220px; /* ★拡大: 150px -> 220px */
+  padding: 30px; /* ★拡大: 20px -> 30px */
+  background-color: #ffffff;
+  border-radius: 16px; /* ★拡大: 12px -> 16px */
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border: 4px solid transparent; /* ★拡大: 3px -> 4px */
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.player-card h2 {
+  margin: 0 0 15px 0;
+  font-size: 1.8rem; /* ★拡大: 1.2rem -> 1.8rem */
+  color: #333;
+}
+
+/* 「1P」「2P」バッジ */
+.status-badge {
+  display: inline-block;
+  padding: 10px 24px; /* ★拡大: 6px 16px -> 10px 24px */
+  font-size: 1.2rem; /* ★追加 */
+  font-weight: bold;
+  border-radius: 24px;
+  background-color: #eee;
+  color: #555;
+}
+
+/* 勝利したプレイヤーのカード */
+.player-card.winner {
+  opacity: 1 !important;
+  border-color: #ffd700 !important;
+  background-color: #fffde7 !important;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.8) !important;
+  transform: scale(1.1) translateY(-8px);
+}
+
+.player-card.winner .status-badge {
+  background-color: #ffb300 !important;
+  color: #fff !important;
+}
+
+/* プレイヤー1のアクティブスタイル */
+#p1-card.active {
+  opacity: 1;
+  border-color: #e53935;
+  box-shadow: 0 8px 24px rgba(229, 57, 53, 0.3);
+  transform: translateY(-6px);
+}
+
+#p1-card.active .status-badge {
+  background-color: #ff3333;
+  color: white;
+}
+
+/* プレイヤー2のアクティブスタイル */
+#p2-card.active {
+  opacity: 1;
+  border-color: #1e88e5;
+  box-shadow: 0 8px 24px rgba(30, 136, 229, 0.3);
+  transform: translateY(-6px);
+}
+
+#p2-card.active .status-badge {
+  background-color: #2196f3;
+  color: white;
+}
+
+/* ==========================================
+   ライフ表示エリア
+   ========================================== */
+.life-container {
+  margin-top: 25px; /* ★拡大: 15px -> 25px */
+  font-size: 1.2rem; /* ★拡大: 0.9rem -> 1.2rem */
+  font-weight: bold;
+  color: #555;
+}
+
+.life-container span {
+  display: block;
+  font-size: 1.8rem; /* ★拡大: 1.2rem -> 1.8rem */
+  margin-top: 8px;
+}
+
+/* ==========================================
+   中央エリア（メッセージ・ボタン）
+   ========================================== */
+.center-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#status-message {
+  font-size: 2.2rem; /* ★拡大: 1.1rem -> 1.5rem */
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding: 14px 28px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 4px solid transparent;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  color: #333;
+  text-align: center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* スタート・リトライボタン */
+#start-btn {
+  margin-bottom: 20px;
+  padding: 14px 36px; /* ★拡大 */
+  font-size: 1.4rem; /* ★拡大: 1rem -> 1.4rem */
+  font-weight: bold;
+  color: white;
+  background-color: #ff5722;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+#start-btn:hover {
+  background-color: #e64a19;
+}
+
+#start-btn.hidden {
+  display: none !important;
+}
+
+/* リセットボタン */
+#reset-btn {
+  margin-top: 20px; /* ★拡大: 15px -> 20px */
+  padding: 14px 36px; /* ★拡大 */
+  font-size: 1.3rem; /* ★拡大: 1rem -> 1.3rem */
+  font-weight: bold;
+  color: white;
+  background-color: #757575;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s;
+}
+
+#reset-btn:hover {
+  background-color: #616161;
+}
+
+#reset-btn.hidden {
+  display: none !important;
+  }
+  
+    /* P1手番時のステータスメッセージ（赤色） */
+#status-message.p1-turn {
+  border-color: #e53935;
+  box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3);
+}
+
+/* P2手番時のステータスメッセージ（青色） */
+#status-message.p2-turn {
+  box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3); 
+  border-color: #1e88e5;
+}
+
+
+
+/* ==========================================
+   ゲーム盤面（4x4 グリッド）
+   ========================================== */
+#board {
+  display: grid;
+  grid-template-columns: repeat(4, 110px); /* ★拡大: 80px -> 110px */
+  grid-template-rows: repeat(4, 110px);    /* ★拡大: 80px -> 110px */
+  gap: 10px; /* ★拡大: 6px -> 10px */
+  background-color: #333;
+  padding: 10px;
+  border-radius: 14px;
+}
+
+/* マスの初期状態 */
+.cell {
+  background-color: #86b32d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem; /* ★拡大: 1.2rem -> 1.8rem */
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.cell:hover {
+  background-color: #f5f5f5;
+}
+
+/* 爆弾設置フェーズ */
+.cell.bomb {
+  background-color: #ffc107;
+  font-size: 2.2rem; /* ★拡大: 1.5rem -> 2.2rem */
+}
+
+/* プレイヤー1ヒット時 */
+.cell.bomb-p1 {
+  background-color: #e53935;
+  color: white;
+  font-size: 2.2rem; /* ★拡大 */
+}
+
+/* プレイヤー2ヒット時 */
+.cell.bomb-p2 {
+  background-color: #1e88e5;
+  color: white;
+  font-size: 2.2rem; /* ★拡大 */
+}
+
+/* 安全マス（数字表示） */
+.cell.safe {
+  background-color: #f5f5f5;
+  color: #333;
+  font-size: 2.5rem; /* 数字を大きめに表示 */
+  font-weight: bold;
+}
+/* 数字の個数に応じた文字色（マインスイーパー風） */
+.cell.safe[data-count="0"] { color: #aaaaaa; } /* 0: 薄いグレー */
+.cell.safe[data-count="1"] { color: #1976d2; } /* 1: 青 */
+.cell.safe[data-count="2"] { color: #388e3c; } /* 2: 緑 */
+.cell.safe[data-count="3"] { color: #d32f2f; } /* 3: 赤 */
+.cell.safe[data-count="4"] { color: #7b1fa2; } /* 4: 紫 */
+.cell.safe[data-count="5"] { color: #ff8f00; } /* 5: オレンジ */
+.cell.safe[data-count="6"] { color: #00838f; } /* 6: シアン */
+.cell.safe[data-count="7"] { color: #424242; } /* 7: ダークグレー */
+.cell.safe[data-count="8"] { color: #000000; } /* 8: 黒 */
+
+
+.cell.revealed {
+  cursor: default;
+}
+
+/* ==========================================
+   レスポンシブ対応（スマホ・小型画面向け）
+   ========================================== */
+
+/* 画面幅が 768px 以下（一般的なスマホ・タブレット縦持ち）の場合 */
+@media (max-width: 768px) {
+  /* 縦並びレイアウトに変更 */
+  .game-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+  }
+
+  /* プレイヤーカードを横長に縮小 */
+  .player-card {
+    width: 280px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .player-card h2 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .life-container {
+    margin-top: 0;
+    font-size: 1rem;
+  }
+
+  .life-container span {
+    display: inline-block;
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-left: 6px;
+  }
+
+  /* ステータスメッセージの文字サイズ調整 */
+  #status-message {
+    font-size: 1.1rem;
+    padding: 10px 18px;
+    margin-bottom: 12px;
+  }
+
+  /* ボタンサイズ調整 */
+  #start-btn, #reset-btn {
+    padding: 10px 24px;
+    font-size: 1.1rem;
+  }
+
+  /* 4x4盤面のサイズ調整（画面からはみ出さないよう自動縮小） */
+  #board {
+    grid-template-columns: repeat(4, 18vw); /* 画面幅に応じた動的な大きさ */
+    grid-template-rows: repeat(4, 18vw);
+    max-width: 320px;
+    max-height: 320px;
+    gap: 6px;
+    padding: 6px;
+  }
+
+  /* マスの文字サイズ調整 */
+  .cell {
+    font-size: 1.2rem;
+  }
+
+  .cell.bomb,
+  .cell.bomb-p1,
+  .cell.bomb-p2 {
+    font-size: 1.4rem;
+  }
+
+  .cell.safe {
+    font-size: 0.9rem;
+  }
+}
